@@ -1,6 +1,0 @@
-= History
-
-== in progress
- * Default no alert on ACTION event.  When you manually stop/start a service,
-   telling me what I just did isn't useful.
- 
