@@ -1,0 +1,7 @@
+# managed by chef, changes will be overwritten
+CHECK PROCESS sshd WITH PIDFILE /var/run/sshd.pid
+  START PROGRAM "/usr/sbin/service ssh start"
+  STOP PROGRAM "/usr/sbin/service ssh stop"
+  # under load a check may fail intermittently, so give it a few tries before restarting
+  IF FAILED PORT 22 PROTOCOL ssh 4 TIMES WITHIN 6 CYCLES THEN RESTART
+
