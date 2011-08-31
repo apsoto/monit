@@ -1,0 +1,6 @@
+CHECK PROCESS postfix WITH PIDFILE /var/spool/postfix/pid/master.pid
+  start program = "/etc/init.d/postfix start"
+  stop  program = "/etc/init.d/postfix stop"
+  GROUP mail
+  IF FAILED PORT 25 PROTOCOL smtp THEN restart
+  IF 5 RESTARTS WITHIN 5 CYCLES THEN timeout
