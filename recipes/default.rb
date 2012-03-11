@@ -25,4 +25,10 @@ template "/etc/monit/monitrc" do
   notifies :restart, resources(:service => "monit"), :immediate
 end
 
-
+directory "/etc/monit/conf.d/" do
+  owner  'root'
+  group 'root'
+  mode 0755
+  action :create
+  recursive true
+end
