@@ -27,6 +27,10 @@ For more info, check out the [Pro Git](http://progit.org/book/ch6-6.html) book.
 History
 =======
 
+version 0.7
+-----------
+ * create /etc/monit/conf.d.  Thanks Karel Minarik (https://github.com/karmi)
+
 version 0.6
 -----------
  * Released to github
