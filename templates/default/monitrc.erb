@@ -1,19 +1,24 @@
 set daemon <%= @node[:monit][:poll_period] %>
   with start delay <%= @node[:monit][:poll_start_delay] %>
 
-set logfile syslog facility log_daemon
-
-set mailserver localhost
+<% unless @node[:monit][:logfile].nil? %>
+set logfile <%= @node[:monit][:logfile] %>
+<% end %>
 
 set eventqueue
-    basedir /var/monit  # set the base directory where events will be stored
-#    slots 1000          # optionaly limit the queue size
+    basedir <%= @node[:monit][:queue][:location]  # set the base directory where events will be stored
+    <% unless @node[:monit][:queue][:slots].nil? %>
+    slots <%= @node[:monit][:queue][:slots] # optionally limit the queue size
+    <% end %>
 
+<% unless @node[:monit][:mail][:server].nil?
+set mailserver <%= @node[:monit][:mail][:server] %>
 set mail-format { 
-  from: <%= @node[:monit][:mail_format][:from] %>
-  subject: <%= @node[:monit][:mail_format][:subject] %>
-  message: <%= @node[:monit][:mail_format][:message] %>
+  from: <%= @node[:monit][:mail][:format][:from] %>
+  subject: <%= @node[:monit][:mail][:format][:subject] %>
+  message: <%= @node[:monit][:mail][:format][:message] %>
 }
+<% end %>
 
 <% if @node[:monit][:notify][:enable] %>
 set alert <%= @node[:monit][:notify][:email] %> NOT ON { action, instance, pid, ppid }
