@@ -6,6 +6,7 @@ define :monitrc, :action => :enable, :reload => :delayed do
       group "root"
       mode 0644
       source "#{name}.conf.erb"
+      cookbook "monit"
       variables params
       notifies :restart, resources(:service => "monit"), params[:reload]
       action :create
