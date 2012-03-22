@@ -1,6 +1,4 @@
-package "monit" do
-  action :install
-end
+package "monit"
 
 if platform?("ubuntu")
   cookbook_file "/etc/default/monit" do
@@ -12,7 +10,7 @@ if platform?("ubuntu")
 end
 
 service "monit" do
-  action :start
+  action [:enable, :start]
   enabled true
   supports [:start, :restart, :stop]
 end
@@ -22,7 +20,7 @@ template "/etc/monit/monitrc" do
   group "root"
   mode 0700
   source 'monitrc.erb'
-  notifies :restart, resources(:service => "monit"), :immediate
+  notifies :restart, resources(:service => "monit"), :delayed
 end
 
 directory "/etc/monit/conf.d/" do
