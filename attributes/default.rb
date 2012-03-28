@@ -11,3 +11,9 @@ Yours sincerely,
 monit
 EOS
 
+case node['platform']
+  when "centos", "redhat", "fedora"
+    default[:monit][:include_dir] = '/etc/monit.d'
+  else
+    default[:monit][:include_dir] = '/etc/monit/conf.d'
+end
