@@ -17,7 +17,6 @@
 ## Start Monit in the background (run as a daemon):
 #
 set daemon  <%= @node[:monit][:poll_period] %>                 # check services at 2-minute intervals
-     with start delay <%= @node[:monit][:poll_start_delay] %>  # optional: delay the first check by 4-minutes (by
 #                                                              # default Monit check immediately after Monit start)
 #
 #
@@ -49,7 +48,6 @@ set logfile syslog facility log_daemon
 # set mailserver mail.bar.baz,               # primary mailserver
 #                backup.bar.baz port 10025,  # backup mailserver on port 10025
 #                localhost                   # fallback relay
-set mailserver localhost
 #
 #
 ## By default Monit will drop alert events if no mail servers are available.
@@ -59,8 +57,8 @@ set mailserver localhost
 ## size using the SLOTS option (if omitted, the queue is limited by space
 ## available in the back end filesystem).
 #
-set eventqueue
-    basedir /var/monit  # set the base directory where events will be stored
+# set eventqueue
+#     basedir /var/monit  # set the base directory where events will be stored
 #     slots 100           # optionally limit the queue size
 #
 #
@@ -105,9 +103,6 @@ set mail-format {
 # set alert sysadm@foo.bar                       # receive all alerts
 # set alert manager@foo.bar only on { timeout }  # receive just service-
 #                                                # timeout alert
-
-set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, ppid }
-
 #
 #
 ## Monit has an embedded web server which can be used to view status of
@@ -245,5 +240,3 @@ set httpd port 2812 and
 #
 
 include <%= @include_path %>
-
-

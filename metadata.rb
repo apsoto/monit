@@ -5,6 +5,9 @@ description      "Configures monit.  Originally based off the 37 Signals Cookboo
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.7"
 
+%w{debian ubuntu redhat centos fedora}.each do |os|
+  supports os
+end
 
 attribute 'monit/notify_email', 
   :description => 'The email address to send alerts to.',
@@ -20,4 +23,3 @@ attribute 'monit/poll_start_delay',
   :description => 'When monit first starts, how long to delay before it starts performing checks',
   :type => "string",
   :required => "recommended"
-
