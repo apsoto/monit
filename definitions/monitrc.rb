@@ -1,5 +1,5 @@
 # reload      Reload monit so it notices the new service.  :delayed (default) or :immediately.
-define :monitrc, :action => :enable, :reload => :delayed do
+define :monitrc, :enable => true, :reload => :delayed do
   if params[:enable]
     template "/etc/monit/conf.d/#{params[:name]}.conf" do
       owner "root"
