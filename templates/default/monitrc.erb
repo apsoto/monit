@@ -1,5 +1,7 @@
 set daemon <%= @node[:monit][:poll_period] %>
+<% if @node[:monit][:poll_start_delay] %>
   with start delay <%= @node[:monit][:poll_start_delay] %>
+<% end %>
 
 set logfile syslog facility log_daemon
 
