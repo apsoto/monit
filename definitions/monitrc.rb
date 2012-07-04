@@ -1,6 +1,6 @@
 # reload: Reload monit so it notices the new service.  :delayed (default) or :immediately.
 # action: :enable To create the monitoring config (default), or :disable to remove it.
-define :monitrc, :action => :enable, :reload => :delayed do
+define :monitrc, :action => :enable, :reload => :delayed, :variables => {} do
   if params[:action] == :enable
     template "/etc/monit/conf.d/#{params[:name]}.conf" do
       owner "root"
@@ -8,7 +8,7 @@ define :monitrc, :action => :enable, :reload => :delayed do
       mode 0644
       source "#{params[:name]}.conf.erb"
       cookbook "monit"
-      variables params
+      variables params[:variables]
       notifies :restart, resources(:service => "monit"), params[:reload]
       action :create
     end
