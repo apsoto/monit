@@ -4,10 +4,18 @@ end
 
 case node['platform_family']
 when "debian"
-  require 'chef/util/file_edit'
-  monit_default = Chef::Util::FileEdit.new("/etc/default/monit")
-  monit_default.search_file_replace_line(/^startup=0/, "startup=1")
-  monit_default.write_file
+  ruby_block 'update /etc/default/monit' do
+    action :nothing
+    only_if do
+      File.exists?("/etc/default/monit")
+    end
+    block do
+      require 'chef/util/file_edit'
+      monit_default = Chef::Util::FileEdit.new("/etc/default/monit")
+      monit_default.search_file_replace_line(/^startup=0/, "startup=1")
+      monit_default.write_file
+    end
+  end
 end
 
 service "monit" do
