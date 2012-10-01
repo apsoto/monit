@@ -2,8 +2,8 @@ maintainer       "Alex Soto"
 maintainer_email "apsoto@gmail.com"
 license          "MIT"
 description      "Configures monit.  Originally based off the 37 Signals Cookbook."
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
-version          "0.7"
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          "0.8"
 
 
 attribute 'monit/notify_email', 

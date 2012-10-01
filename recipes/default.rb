@@ -1,12 +1,13 @@
-package "monit"
+package "monit" do
+  action :install
+end
 
-if platform?("ubuntu")
-  cookbook_file "/etc/default/monit" do
-    source "monit.default"
-    owner "root"
-    group "root"
-    mode 0644
-  end
+case node['platform_family']
+when "debian"
+  require 'chef/util/file_edit'
+  monit_default = Chef::Util::FileEdit.new("/etc/default/monit")
+  monit_default.search_file_replace_line(/^startup=0/, "startup=1")
+  monit_default.write_file
 end
 
 service "monit" do
@@ -29,4 +30,8 @@ directory "/etc/monit/conf.d/" do
   mode 0755
   action :create
   recursive true
+end
+
+node['monit']['include'].each do |recipe|
+  include_recipe "monit::#{recipe}"
 end
