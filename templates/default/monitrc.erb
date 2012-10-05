@@ -1,9 +1,17 @@
 set daemon <%= @node[:monit][:poll_period] %>
+<% if @node[:monit][:poll_start_delay] %>
   with start delay <%= @node[:monit][:poll_start_delay] %>
+<% end %>
 
 set logfile syslog facility log_daemon
 
-set mailserver localhost
+set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit][:mailserver][:port]}" if @node[:monit][:mailserver][:host] %>
+<% if @node[:monit][:mailserver][:username] %>
+  username "<%= @node[:monit][:mailserver][:username] %>"
+<% end %>
+<% if @node[:monit][:mailserver][:password] %>
+  password "<%= @node[:monit][:mailserver][:password] %>"<%= " #{@node[:monit][:mailserver][:password_suffix]}" if @node[:monit][:mailserver][:password_suffix] %>
+<% end %>
 
 set eventqueue
     basedir /var/monit  # set the base directory where events will be stored
