@@ -117,13 +117,6 @@ Outputs the mysql_bin.conf file:
 History
 =======
 
-version 0.8
------------
- * miscelanious fixes from Robby Grossman (https://github.com/freerobby)
- * LWRP added.
- * Added debian support.
- * Removed hard coded templates.
-
 version 0.7
 -----------
  * create /etc/monit/conf.d.  Thanks Karel Minarik (https://github.com/karmi)
