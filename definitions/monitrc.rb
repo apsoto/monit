@@ -1,3 +1,5 @@
+# Please switch to monit_conf resource.
+#
 # reload: Reload monit so it notices the new service.  :delayed (default) or :immediately.
 # action: :enable To create the monitoring config (default), or :disable to remove it.
 # variables: Hash of instance variables to pass to the ERB template
