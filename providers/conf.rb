@@ -20,7 +20,9 @@ action :create do
       :pid => new_resource.pid,
       :rule => new_resource.rule,
       :start => new_resource.start,
+      :start_as => new_resource.start_as,
       :stop => new_resource.stop,
+      :stop_as => new_resource.stop_as,
       :type => new_resource.type
     )
     notifies :restart, resources(:service => "monit"), new_resource.reload
