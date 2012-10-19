@@ -2,7 +2,6 @@ actions :create, :delete
 
 default_action :create
 
-attribute :action, :equal_to => [:enable, :disable], :default => :enable
 attribute :cookbook, :kind_of => String, :default => "monit"
 attribute :depends, :kind_of => [String, Array]
 attribute :group, :kind_of => [String, Array]

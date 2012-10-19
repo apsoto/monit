@@ -30,6 +30,8 @@ end
 action :delete do
   template "/etc/monit/conf.d/#{new_resource.name}.conf" do
     action :delete
+    source new_resource.template
+    cookbook new_resource.cookbook
     notifies :restart, resources(:service => "monit"), new_resource.reload
   end
 end
