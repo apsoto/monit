@@ -5,7 +5,7 @@ set daemon <%= @node[:monit][:poll_period] %>
 
 set logfile syslog facility log_daemon
 
-set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit][:mailserver][:port]}" if @node[:monit][:mailserver][:host] %>
+set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit][:mailserver][:port]}" if @node[:monit][:mailserver][:port] %>
 <% if @node[:monit][:mailserver][:username] %>
   username "<%= @node[:monit][:mailserver][:username] %>"
 <% end %>
