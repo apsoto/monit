@@ -1,7 +1,7 @@
 # Unmonitor services that might be manipulated by the chef run
 e = execute "monit unmonitor all" do
   action :nothing
-  only_if "ps -e | grep `cat /var/run/monit.pid`"
+  only_if "ps -e | grep -q `cat /var/run/monit.pid`"
   ignore_failure true
 end
 e.run_action(:run)
@@ -9,7 +9,7 @@ e.run_action(:run)
 # Monitor chef-client in case it bails mid-run
 e = execute "monit monitor chef-client" do
   action :nothing
-  only_if { File.exists?("/etc/monit/conf.d/chef-client.conf") }
+  only_if "ps -e | grep -q `cat /var/run/monit.pid` && monit summary | grep -q \"Process 'chef-client'\""
   ignore_failure true
 end
 e.run_action(:run)
