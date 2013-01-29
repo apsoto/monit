@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe 'monit::default' do
   context "with default attributes" do
-    let(:chef_run) do
-      runner = ChefSpec::Runner.new.converge(described_recipe)
-    end
+    let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
 
     it 'creates /etc/monit/conf.d/' do
       expect(chef_run).to create_directory('/etc/monit/conf.d/').with(user: 'root', group: 'root', mode: 0755)
@@ -26,6 +24,10 @@ describe 'monit::default' do
 
     it 'start the service' do
       expect(chef_run).to start_service('monit') 
+    end
+
+    it 'does not email notifications' do
+      expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set alert /)
     end
   end
 
