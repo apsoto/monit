@@ -4,7 +4,7 @@ default[:monit][:poll_period]           = 60
 default[:monit][:poll_start_delay]      = 120
 
 default[:monit][:mail_format][:subject] = "$SERVICE $EVENT"
-default[:monit][:mail_format][:from]    = "monit@example.com"
+default[:monit][:mail_format][:from]    = "monit@#{node['fqdn']}"
 default[:monit][:mail_format][:message]    = <<-EOS
 Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.
 Yours sincerely,
@@ -18,3 +18,9 @@ default[:monit][:mailserver][:password] = nil
 default[:monit][:mailserver][:password_suffix] = nil
 default[:monit][:mailserver][:using] = nil
 default[:monit][:mailserver][:with] = nil
+
+default[:monit][:port] = 3737
+default[:monit][:address] = "localhost"
+default[:monit][:ssl] = false
+default[:monit][:cert] = "/etc/monit/monit.pem"
+default[:monit][:allow] = ["localhost"]

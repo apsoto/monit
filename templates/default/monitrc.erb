@@ -5,7 +5,7 @@ set daemon <%= @node[:monit][:poll_period] %>
 
 set logfile syslog facility log_daemon
 
-set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit][:mailserver][:port]}" if @node[:monit][:mailserver][:host] %>
+set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit][:mailserver][:port]}" if @node[:monit][:mailserver][:port] %>
 <% if @node[:monit][:mailserver][:username] %>
   username "<%= @node[:monit][:mailserver][:username] %>"
 <% end %>
@@ -31,9 +31,15 @@ set mail-format {
 
 set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, ppid }
 
-set httpd port 3737 and
-    use address localhost
-    allow localhost
+set httpd port <%= node[:monit][:port] %>
+  <%= "use address #{node[:monit][:address]}" if node[:monit][:address] %>
+<% node[:monit][:allow].each do |a| %>
+  allow <%= "#{a}" %>
+<% end %>
+<% if node[:monit][:ssl] %>
+  ssl enable
+  pemfile <%= node[:monit][:cert] %>
+<% end %>
 
 include /etc/monit/conf.d/*.conf
 
