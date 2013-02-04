@@ -17,13 +17,13 @@ set eventqueue
     basedir /var/monit  # set the base directory where events will be stored
 #    slots 1000          # optionaly limit the queue size
 
-set mail-format { 
+set mail-format {
   from: <%= @node[:monit][:mail_format][:from] %>
   subject: <%= @node[:monit][:mail_format][:subject] %>
   message: <%= @node[:monit][:mail_format][:message] %>
 }
 
-set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, ppid }
+set alert <%= @node[:monit][:notify_email] %> NOT ON { <%= @node[:monit][:ignored_events].join(", ") %> }
 
 set httpd port <%= node[:monit][:port] %>
   <%= "use address #{node[:monit][:address]}" if node[:monit][:address] %>
