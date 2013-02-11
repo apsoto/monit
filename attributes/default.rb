@@ -1,4 +1,6 @@
 default[:monit][:notify_email]          = "notify@example.com"
+default[:monit][:notify_keyword] 		= "NOT ON"
+default[:monit][:notify_event] 			= [ 'action', 'instance', 'pid', 'ppid' ]
 
 default[:monit][:poll_period]           = 60
 default[:monit][:poll_start_delay]      = 120
