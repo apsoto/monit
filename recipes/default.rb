@@ -27,7 +27,7 @@ directory "/etc/monit/conf.d/" do
   recursive true
 end
 
-template "/etc/monit/monitrc" do
+template "/etc/monitrc" do
   owner "root"
   group "root"
   mode 0700
