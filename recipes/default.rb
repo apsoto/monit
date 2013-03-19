@@ -1,4 +1,8 @@
-package "monit"
+package "monit" do
+    action :remove
+end
+
+include_recipe "monit::build_src"
 
 if platform?("ubuntu")
   cookbook_file "/etc/default/monit" do
