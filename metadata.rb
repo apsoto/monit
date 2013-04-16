@@ -1,3 +1,4 @@
+name             "monit"
 maintainer       "Alex Soto"
 maintainer_email "apsoto@gmail.com"
 license          "MIT"
@@ -6,7 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.7"
 
 
-attribute 'monit/notify_email', 
+attribute 'monit/notify_email',
   :description => 'The email address to send alerts to.',
   :type => "string",
   :required => "recommended"
