@@ -30,3 +30,11 @@ template "/etc/monit/monitrc" do
   source 'monitrc.erb'
   notifies :restart, resources(:service => "monit"), :delayed
 end
+
+template "/etc/default/monit" do
+  owner "root"
+  group "root"
+  mode 0644
+  source 'monit.erb'
+  only_if { node['platform_family'] == 'debian' }
+end
