@@ -26,6 +26,9 @@ For more info, check out the [Pro Git](http://progit.org/book/ch6-6.html) book.
 
 History
 =======
+version 0.7.1
+-------------
+ * add name to metadata.rb.  Thanks Chulki Lee (https://github.com/chulkilee)
 
 version 0.7
 -----------
