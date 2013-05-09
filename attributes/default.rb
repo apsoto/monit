@@ -22,3 +22,5 @@ default[:monit][:address] = "localhost"
 default[:monit][:ssl] = false
 default[:monit][:cert] = "/etc/monit/monit.pem"
 default[:monit][:allow] = ["localhost"]
+
+default[:monit][:ssh_port] = 22
