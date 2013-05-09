@@ -4,6 +4,7 @@
 
 # You must set this variable to for monit to start
 startup=1
+START=yes
 
 # To change the intervals which monit should run,
 # edit the configuration file /etc/monit/monitrc
