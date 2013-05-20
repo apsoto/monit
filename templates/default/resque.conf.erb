@@ -1,0 +1,21 @@
+<% counter = 0 %>
+
+<% node['monit']['resque']['queues'].each do |queue| %>
+  <% queue['worker_count'].times do %>
+check process resque_worker_<%= counter %> with pidfile <%= @node['monit']['resque']['app_root'] %>/tmp/pids/resque_worker.<%= counter %>.pid
+
+  group resque_workers
+
+  # Note: the priority of queues is determined by their order in the following statement:
+
+  start program = "/usr/bin/env PATH=/usr/local/bin:/usr/local/ruby/bin:/usr/bin:/bin:$PATH /bin/sh -l -c 'cd <%= @node['monit']['resque']['app_root'] %> && nohup bundle exec rake environment resque'work' RAILS_ENV=<%= node.chef_environment %> QUEUE=<%=
+  queue['queue_list'].join(',')
+  %> VERBOSE=1 PIDFILE=<%= @node['monit']['resque']['app_root'] %>/tmp/pids/resque_worker.<%= counter %>.pid >> log/resque_worker.<%= counter %>.log 2>&1 &'" with timeout 90 seconds
+
+  stop program = "/bin/sh -c 'cd <%= @node['monit']['resque']['app_root'] %> && kill -TERM `cat tmp/pids/resque_worker.<%= counter %>.pid` && rm -f tmp/pids/resque_worker.<%= counter %>.pid; exit 0;'"
+
+  if totalmem is greater than 1500 MB for 10 cycles then restart
+
+  <% counter += 1 %>
+  <% end %>
+<% end %>
