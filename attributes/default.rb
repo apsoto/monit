@@ -1,5 +1,7 @@
 default[:monit][:notify_email]          = "notify@example.com"
 
+default[:monit][:logfile]               = 'syslog facility log_daemon'
+
 default[:monit][:poll_period]           = 60
 default[:monit][:poll_start_delay]      = 120
 
