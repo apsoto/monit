@@ -12,6 +12,12 @@ set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit
 <% if @node[:monit][:mailserver][:password] %>
   password "<%= @node[:monit][:mailserver][:password] %>"<%= " #{@node[:monit][:mailserver][:password_suffix]}" if @node[:monit][:mailserver][:password_suffix] %>
 <% end %>
+<% if @node[:monit][:mailserver][:using] %>
+  using <%= @node[:monit][:mailserver][:using] %>
+<% end %>
+<% if @node[:monit][:mailserver][:with] %>
+  with <%= @node[:monit][:mailserver][:with] %>
+<% end %>
 
 set eventqueue
     basedir /var/monit  # set the base directory where events will be stored
