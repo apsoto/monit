@@ -1,0 +1,6 @@
+CHECK PROCESS rabbitmq-server WITH PIDFILE /var/run/rabbitmq/pid
+  GROUP rabbitmq
+  START PROGRAM "/usr/sbin/service rabbitmq-server start"
+  STOP PROGRAM "/usr/sbin/service rabbitmq-server stop"
+  IF DOES NOT EXIST FOR 3 CYCLES THEN RESTART
+  IF FAILED PORT 5672 4 TIMES WITHIN 6 CYCLES THEN RESTART
