@@ -36,7 +36,7 @@ set httpd port <%= @node[:monit][:port] %>
 <% @node[:monit][:allow].each do |a| %>
   allow <%= "#{a}" %>
 <% end %>
-  <%= "#{@node[:monit][:username]}:#{@node[:monit][:password]}" if @node[:monit][:username] %>
+  <%= "allow #{@node[:monit][:username]}:#{@node[:monit][:password]}" if @node[:monit][:username] %>
 <% if node[:monit][:ssl] %>
   ssl enable
   pemfile <%= @node[:monit][:cert] %>
