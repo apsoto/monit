@@ -1,0 +1,7 @@
+CHECK PROCESS postgresql WITH PIDFILE /var/run/postgresql/9.1-main.pid
+  start program = "/etc/init.d/postgresql start"
+  stop  program = "/etc/init.d/postgresql stop"
+  GROUP postgres
+  IF FAILED UNIXSOCKET /var/run/postgresql/.s.PGSQL.5432 PROTOCOL pgsql THEN RESTART
+  IF FAILED HOST 127.0.0.1 PORT 5432 PROTOCOL pgsql THEN RESTART
+  IF 5 RESTARTS WITHIN 5 CYCLES THEN TIMEOUT
