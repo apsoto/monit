@@ -18,9 +18,12 @@ default[:monit][:mailserver][:port] = nil
 default[:monit][:mailserver][:username] = nil
 default[:monit][:mailserver][:password] = nil
 default[:monit][:mailserver][:password_suffix] = nil
+default[:monit][:mailserver][:secure_with] = nil
 
 default[:monit][:port] = 3737
 default[:monit][:address] = "localhost"
 default[:monit][:ssl] = false
 default[:monit][:cert] = "/etc/monit/monit.pem"
 default[:monit][:allow] = ["localhost"]
+
+default[:monit][:ssh_port] = 22
