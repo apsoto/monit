@@ -2,7 +2,7 @@ package "monit" do
     action :remove
 end
 
-remote_file "#{Chef::Config[:file_cache_path]}/monit-5.6.tar.gz" do
+remote_file "/tmp/monit-5.6.tar.gz" do
   source "http://mmonit.com/monit/dist/monit-5.6.tar.gz"
   owner "root"
   group "root"
@@ -12,7 +12,7 @@ end
 script "compile_monit" do
   interpreter "bash"
   user "root"
-  cwd "#{Chef::Config[:file_cache_path]}"
+  cwd "/tmp"
   creates "/usr/local/share/man/man1/monit.1"
   code <<-EOH
     STATUS=0
@@ -21,7 +21,7 @@ script "compile_monit" do
     ./configure --without-pam --without-ssl || STATUS=1
     make || STATUS=1
     make install || STATUS=1
-    cd #{Chef::Config[:file_cache_path]}
+    cd /tmp
     rm -rf monit-5.6*
     exit $STATUS
   EOH
@@ -37,6 +37,13 @@ if platform?("ubuntu")
   end
 end
 
+cookbook_file "/etc/init.d/monit" do
+  action :create
+  owner "root"
+  group "root"
+  mode 0755
+  source 'init-monit-ubuntu12.sh'
+end
 service "monit" do
   action [:enable, :start]
   enabled true
