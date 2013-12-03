@@ -12,12 +12,18 @@ set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit
 <% if @node[:monit][:mailserver][:password] %>
   password "<%= @node[:monit][:mailserver][:password] %>"<%= " #{@node[:monit][:mailserver][:password_suffix]}" if @node[:monit][:mailserver][:password_suffix] %>
 <% end %>
+<% if @node[:monit][:mailserver][:encryption] %>
+  using <%= @node[:monit][:mailserver][:encryption] %>
+<% end %>
+<% if @node[:monit][:mailserver][:timeout] %>
+  with timeout <%= @node[:monit][:mailserver][:timeout] %> seconds
+<% end %>
 
 set eventqueue
     basedir /var/monit  # set the base directory where events will be stored
 #    slots 1000          # optionaly limit the queue size
 
-set mail-format { 
+set mail-format {
   from: <%= @node[:monit][:mail_format][:from] %>
   subject: <%= @node[:monit][:mail_format][:subject] %>
   message: <%= @node[:monit][:mail_format][:message] %>
@@ -25,14 +31,15 @@ set mail-format {
 
 set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, ppid }
 
-set httpd port <%= node[:monit][:port] %>
-  <%= "use address #{node[:monit][:address]}" if node[:monit][:address] %>
-<% node[:monit][:allow].each do |a| %>
+set httpd port <%= @node[:monit][:port] %>
+  <%= "use address #{@node[:monit][:address]}" if @node[:monit][:address] %>
+<% @node[:monit][:allow].each do |a| %>
   allow <%= "#{a}" %>
 <% end %>
+  <%= "allow #{@node[:monit][:username]}:#{@node[:monit][:password]}" if @node[:monit][:username] %>
 <% if node[:monit][:ssl] %>
   ssl enable
-  pemfile <%= node[:monit][:cert] %>
+  pemfile <%= @node[:monit][:cert] %>
 <% end %>
 
 include /etc/monit/conf.d/*.conf
