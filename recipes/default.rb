@@ -1,12 +1,11 @@
 package "monit"
 
-if platform?("ubuntu")
-  cookbook_file "/etc/default/monit" do
-    source "monit.default"
-    owner "root"
-    group "root"
-    mode 0644
-  end
+cookbook_file "/etc/default/monit" do
+  source "monit.default"
+  owner "root"
+  group "root"
+  mode 0644
+  only_if platform?("ubuntu")
 end
 
 directory "/etc/monit/conf.d/" do
