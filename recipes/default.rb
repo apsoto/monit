@@ -26,6 +26,5 @@ end
 
 service "monit" do
   action [:enable, :start]
-  enabled true
   supports [:start, :restart, :stop]
 end
