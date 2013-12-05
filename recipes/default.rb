@@ -5,7 +5,7 @@ cookbook_file "/etc/default/monit" do
   owner "root"
   group "root"
   mode 0644
-  only_if platform?("ubuntu")
+  action platform?("ubuntu") ? :create : :nothing
 end
 
 directory "/etc/monit/conf.d/" do
