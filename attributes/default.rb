@@ -28,3 +28,4 @@ default[:monit][:cert] = "/etc/monit/monit.pem"
 default[:monit][:allow] = ["localhost"]
 default[:monit][:username] = nil
 default[:monit][:password] = nil
+default[:monit][:ssh_port] = 22
