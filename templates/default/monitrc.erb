@@ -5,6 +5,11 @@ set daemon <%= @node[:monit][:poll_period] %>
 
 set logfile <%= @node[:monit][:logfile] %>
 
+set eventqueue
+    basedir /var/monit  # set the base directory where events will be stored
+#    slots 1000          # optionaly limit the queue size
+
+<% unless @node[:monit][:notify_email].nil? || @node[:monit][:notify_email] == '' %>
 set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit][:mailserver][:port]}" if @node[:monit][:mailserver][:port] %>
 <% if @node[:monit][:mailserver][:username] %>
   username "<%= @node[:monit][:mailserver][:username] %>"
@@ -19,10 +24,6 @@ set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit
   with timeout <%= @node[:monit][:mailserver][:timeout] %> seconds
 <% end %>
 
-set eventqueue
-    basedir /var/monit  # set the base directory where events will be stored
-#    slots 1000          # optionaly limit the queue size
-
 set mail-format {
   from: <%= @node[:monit][:mail_format][:from] %>
   subject: <%= @node[:monit][:mail_format][:subject] %>
@@ -30,6 +31,7 @@ set mail-format {
 }
 
 set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, ppid }
+<% end %>
 
 set httpd port <%= @node[:monit][:port] %>
   <%= "use address #{@node[:monit][:address]}" if @node[:monit][:address] %>

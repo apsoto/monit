@@ -16,7 +16,9 @@ describe 'monit::default' do
       expect(file).to notify('service[monit]').to(:restart)
 
       expect(chef_run).to render_file('/etc/monit/monitrc').with_content(/set daemon 60\n\s*with start delay 120$/)
-      expect(chef_run).to render_file('/etc/monit/monitrc').with_content(/set mailserver localhost\n\s*with timeout 60 seconds$/)
+      expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set mailserver/)
+      expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set mail-format/)
+      expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set alert/)
       expect(chef_run).to render_file('/etc/monit/monitrc').with_content(/set httpd port 3737\n\s*use address localhost\n\s*allow localhost$/)
     end
 
@@ -32,7 +34,7 @@ describe 'monit::default' do
   context "with configuration" do
     let(:chef_run) do
       runner = ChefSpec::Runner.new do |node|
-        node.set[:monit][:notify_email] = 'johndoe@example.com'
+         node.set[:monit][:notify_email] = 'johndoe@example.com'
         node.set[:monit][:logfile] = '/var/log/monit.log'
         node.set[:monit][:poll_period] = 30         
         node.set[:monit][:poll_start_delay] = 90
@@ -65,6 +67,22 @@ describe 'monit::default' do
       expect(chef_run).to render_file('/etc/monit/monitrc').with_content(/allow johndoe:secret$/)
       expect(chef_run).to render_file('/etc/monit/monitrc').with_content(%r|ssl enable\n\s*pemfile /etc/monit/monit.pem$|)
     end
+
+    describe 'mail alerts' do
+      let(:chef_run) do
+        runner = ChefSpec::Runner.new do |node|
+          node.set[:monit][:notify_email] = ''
+        end.converge(described_recipe)
+      end
+
+      it 'when notify_email is blank, it doesn not sets alerts' do
+        expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set mailserver/)
+        expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set mail-format/)
+        expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set alert/)
+      end
+
+    end
+
   end
 
   context "on ubuntu" do
