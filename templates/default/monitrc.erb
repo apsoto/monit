@@ -29,7 +29,7 @@ set mail-format {
   message: <%= @node[:monit][:mail_format][:message] %>
 }
 
-set alert <%= @node[:monit][:notify_email] %><% if @node[:monit][:alert][:not_on] %> NOT ON { <%= @node[:monit][:alert][:not_on] %> }<% end %>
+set alert <%= @node[:monit][:notify_email] %><% if @node[:monit][:alert][:not_on] && @node[:monit][:alert][:not_on] != "" %> NOT ON { <%= @node[:monit][:alert][:not_on] %> }<% end %>
 
 set httpd port <%= @node[:monit][:port] %>
   <%= "use address #{@node[:monit][:address]}" if @node[:monit][:address] %>
