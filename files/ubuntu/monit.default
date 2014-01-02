@@ -1,11 +1,10 @@
-# Defaults for monit initscript
-# sourced by /etc/init.d/monit
-# installed at /etc/default/monit by chef
+# /etc/default/monit
 
-# You must set this variable to for monit to start
-startup=1
+# Defaults for monit initscript.  This file is sourced by
+# /bin/sh from /etc/init.d/monit.
 
-# To change the intervals which monit should run,
-# edit the configuration file /etc/monit/monitrc
-# It can no longer be configured here.
+# Set START to yes to start the monit
+START=yes
 
+# Options to pass to monit
+#MONIT_OPTS=
