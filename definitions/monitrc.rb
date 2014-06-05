@@ -17,7 +17,7 @@ define :monitrc, :action => :enable, :reload => :delayed, :variables => {}, :tem
       action :create
     end
   else
-    template "/etc/monit/conf.d/#{params[:name]}.conf" do
+    file "/etc/monit/conf.d/#{params[:name]}.conf" do
       action :delete
       notifies :restart, resources(:service => "monit"), params[:reload]
     end
