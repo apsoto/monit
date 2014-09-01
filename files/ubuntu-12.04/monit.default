@@ -3,7 +3,7 @@
 # installed at /etc/default/monit by chef
 
 # You must set this variable to for monit to start
-START=yes
+startup=1
 
 # To change the intervals which monit should run,
 # edit the configuration file /etc/monit/monitrc
