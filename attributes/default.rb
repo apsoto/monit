@@ -29,3 +29,7 @@ default[:monit][:allow] = ["localhost"]
 default[:monit][:username] = nil
 default[:monit][:password] = nil
 default[:monit][:ssh_port] = 22
+
+default[:monit][:eventqueue][:set] = true
+default[:monit][:eventqueue][:basedir] = "/var/monit"
+default[:monit][:eventqueue][:slots] = 1000

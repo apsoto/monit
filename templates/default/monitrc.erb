@@ -19,9 +19,11 @@ set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit
   with timeout <%= @node[:monit][:mailserver][:timeout] %> seconds
 <% end %>
 
+<% if @node[:monit][:eventqueue][:set] %>
 set eventqueue
-    basedir /var/monit  # set the base directory where events will be stored
-#    slots 1000          # optionaly limit the queue size
+  basedir <%= @node[:monit][:eventqueue][:basedir] %>  # set the base directory where events will be stored
+  slots <%= @node[:monit][:eventqueue][:slots] %>
+<% end %>
 
 set mail-format {
   from: <%= @node[:monit][:mail_format][:from] %>
