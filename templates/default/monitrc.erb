@@ -22,7 +22,7 @@ set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit
 <% if @node[:monit][:eventqueue][:set] %>
 set eventqueue
   basedir <%= @node[:monit][:eventqueue][:basedir] %>  # set the base directory where events will be stored
-  slots <%= @node[:monit][:eventqueue][:slots] %>
+  <%= "slots #{@node[:monit][:eventqueue][:slots]}" if @node[:monit][:eventqueue][:slots] %>
 <% end %>
 
 set mail-format {
