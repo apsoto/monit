@@ -1,4 +1,5 @@
 default[:monit][:notify_email]          = "notify@example.com"
+default[:monit][:ignored_events]        = ["action", "instance", "pid", "ppid"]
 
 default[:monit][:logfile]               = 'syslog facility log_daemon'
 
