@@ -31,7 +31,7 @@ set mail-format {
   message: <%= @node[:monit][:mail_format][:message] %>
 }
 
-set alert <%= @node[:monit][:notify_email] %><%= " NOT ON { #{@node[:monit][:alert_blacklist]} }" unless @node[:monit][:alert_blacklist].empty? %>
+set alert <%= @node[:monit][:notify_email] %><%= " NOT ON { #{@node[:monit][:alert_blacklist].join(", ")} }" unless @node[:monit][:alert_blacklist].empty? %>
 
 set httpd port <%= @node[:monit][:port] %>
   <%= "use address #{@node[:monit][:address]}" if @node[:monit][:address] %>
