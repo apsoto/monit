@@ -1,6 +1,6 @@
 package "monit"
 
-if platform?("ubuntu")
+if platform?("ubuntu") || platform?("debian")
   cookbook_file "/etc/default/monit" do
     source "monit.default"
     owner "root"
