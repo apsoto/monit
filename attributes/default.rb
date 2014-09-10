@@ -1,5 +1,5 @@
 default["monit"]["notify_email"]          = "notify@example.com"
-default["monit"]["alert_blacklist"]       = %w( action, instance, pid, ppid )
+default["monit"]["alert_blacklist"]       = %w( action instance pid ppid )
 
 default["monit"]["logfile"]               = 'syslog facility log_daemon'
 
