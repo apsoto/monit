@@ -12,7 +12,12 @@ task :foodcritic do
   end
 end
 
-task :default => 'foodcritic'
+desc "Run spec/chefspec"
+task :chef_spec do
+  sh "bundle exec rspec"
+end
+
+task :default => [:foodcritic, :chef_spec]
 
 private
 
