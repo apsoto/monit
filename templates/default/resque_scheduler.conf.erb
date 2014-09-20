@@ -1,0 +1,5 @@
+check process resque_scheduler with pidfile <%= @node[:monit][:resque][:app_root] %>/tmp/pids/resque_scheduler.pid
+  group resque_scheduler
+  start program = "/usr/bin/env PATH=/usr/local/bin:/usr/local/ruby/bin:/usr/bin:/bin:$PATH RACK_ENV=<%= node.chef_environment %> /bin/sh -l -c 'cd <%= @node[:monit][:resque][:app_root] %> && nohup bundle exec rake environment resque:scheduler RAILS_ENV=<%= node.chef_environment %> QUEUE=* VERBOSE=1 INITIALIZER_PATH=<%= @node[:monit][:resque][:app_root] %>/config/initializers/resque.rb PIDFILE=<%= @node[:monit][:resque][:app_root] %>/tmp/pids/resque_scheduler.pid & >> log/resque_scheduler.log 2>&1'" with timeout 90 seconds
+  stop program = "/bin/sh -c 'cd <%= @node[:monit][:resque][:app_root] %> && kill -9 `cat tmp/pids/resque_scheduler.pid` && rm -f tmp/pids/resque_scheduler.pid; exit 0;'"
+  if totalmem is greater than 300 MB for 10 cycles then restart
