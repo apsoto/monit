@@ -5,6 +5,14 @@ set daemon <%= @node["monit"]["poll_period"] %>
 
 set logfile <%= @node["monit"]["logfile"] %>
 
+<% if @node["monit"]["eventqueue"]["set"] %>
+set eventqueue
+  basedir <%= @node["monit"]["eventqueue"]["basedir"] %>  # set the base directory where events will be stored
+  <%= "slots #{@node["monit"]["eventqueue"]["slots"]}" if @node["monit"]["eventqueue"]["slots"] %>
+<% end %>
+
+<% unless @node[:monit][:notify_email].nil? || @node[:monit][:notify_email] == '' %>
+
 set mailserver <%= @node["monit"]["mailserver"]["host"] %><%= " port #{@node["monit"]["mailserver"]["port"]}" if @node["monit"]["mailserver"]["port"] %>
 <% if @node["monit"]["mailserver"]["username"] %>
   username "<%= @node["monit"]["mailserver"]["username"] %>"
@@ -19,19 +27,12 @@ set mailserver <%= @node["monit"]["mailserver"]["host"] %><%= " port #{@node["mo
   with timeout <%= @node["monit"]["mailserver"]["timeout"] %> seconds
 <% end %>
 
-<% if @node["monit"]["eventqueue"]["set"] %>
-set eventqueue
-  basedir <%= @node["monit"]["eventqueue"]["basedir"] %>  # set the base directory where events will be stored
-  <%= "slots #{@node["monit"]["eventqueue"]["slots"]}" if @node["monit"]["eventqueue"]["slots"] %>
-<% end %>
-
 set mail-format {
   from: <%= @node["monit"]["mail_format"]["from"] %>
   subject: <%= @node["monit"]["mail_format"]["subject"] %>
   message: <%= @node["monit"]["mail_format"]["message"] %>
 }
 
-<% unless @node[:monit][:notify_email].nil? %>
   set alert <%= @node["monit"]["notify_email"] %><%= " NOT ON { #{@node["monit"]["alert_blacklist"].join(", ")} }" unless @node["monit"]["alert_blacklist"].empty? %>
 <% end %>
 

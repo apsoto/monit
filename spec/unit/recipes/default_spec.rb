@@ -14,8 +14,11 @@ describe 'monit::default' do
       expect(file).to notify('service[monit]').to(:restart)
 
       expect(chef_run).to render_file('/etc/monit/monitrc').with_content(/set daemon 60\n\s*with start delay 120$/)
-      expect(chef_run).to render_file('/etc/monit/monitrc').with_content(/set mailserver localhost\n\s*with timeout 60 seconds$/)
       expect(chef_run).to render_file('/etc/monit/monitrc').with_content(/set httpd port 3737/)
+
+      expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set mailserver/)
+      expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set mail-format/)
+      expect(chef_run).not_to render_file('/etc/monit/monitrc').with_content(/set alert/)
     end
 
     it 'enables the service' do
