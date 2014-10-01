@@ -15,6 +15,7 @@ monit
 EOS
 
 default["monit"]["mailserver"]["host"] = "localhost"
+default["monit"]["mailserver"]["hostname"] = nil
 default["monit"]["mailserver"]["port"] = nil
 default["monit"]["mailserver"]["username"] = nil
 default["monit"]["mailserver"]["password"] = nil

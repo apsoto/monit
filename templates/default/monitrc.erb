@@ -14,6 +14,9 @@ set eventqueue
 <% unless @node[:monit][:notify_email].nil? || @node[:monit][:notify_email] == '' %>
 
 set mailserver <%= @node["monit"]["mailserver"]["host"] %><%= " port #{@node["monit"]["mailserver"]["port"]}" if @node["monit"]["mailserver"]["port"] %>
+<% if @node["monit"]["mailserver"]["hostname"] %>
+  using HOSTNAME "<%= @node["monit"]["mailserver"]["hostname"] %>"
+<% end %>
 <% if @node["monit"]["mailserver"]["username"] %>
   username "<%= @node["monit"]["mailserver"]["username"] %>"
 <% end %>
