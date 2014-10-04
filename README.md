@@ -10,6 +10,7 @@ management tool.
  * Rebase onto master if needed
  * Add Chefspec test
  * Make sure foodcritic is happy
+ * Make sure your PR is marked as "safe to merge"
 
 # How to add to your cookbook repository #
 
