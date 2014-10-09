@@ -1,0 +1,24 @@
+0.7.5
+72eaa42 update rspec
+46e8a4a Add one more condition to contribution - make sure PR is safe to merge
+645954f bump version in metadata.rb per Issue #60. Delete unmaintained History - to be replaced by Changelog or similar
+009098f Removed 2nd line
+20e7ad1 Add basic guidelines for submitting changes / PRs
+ca206d4 Add 'using hostname' test per PR #36
+d81f164 Manually backport changes in PR #36
+798971c parameterize postgres, add attributes and add basic test for postgres monit file. Addresses issue #53
+d1af7b3 only configure outbound mail if notify_email is set, captures spirit of PR #46
+e9c405a Delete test/Gemfile to avoid having to keep the 2 Gemfiles in sync
+d290631 Merge pull request #30 from Lytro/resque
+d4eb885 support monit for resque workers and resque schedulers
+7c0c2d7 Merge pull request #20 from Lytro/make_email_alerts_optional
+65bf8eb don't set email alerts if node[:monit][:notify_email] is nil (defaults to nil)
+e0bc91e Add chef-spec to Rakefile so specs/tests are run during CI. Concerns #59
+f2adafc Merge pull request #59 from Lytro/fix_specs
+58b872b fix the specs
+6e47cfd Add Travis build status to project page. Closes #58
+ac1922e Travis config: exlude LWRP suggestion from foodcritic, Bump version of foodcritic to 4.0.0, Delete link to RDOC, Cleanup foodcriti
+94b6958 Adding default file for debian systems. Two versions of file to support older Debian 6 releases and current Debian 7 (wheezy) rele
+fa5f017 set default alert blacklist
+68a9e24 Merge pull request #45 from wadtech/master
+ca8ecf6 Merge pull request #51 from engineyard-cookbooks/disable-with-custom-template
