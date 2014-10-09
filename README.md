@@ -12,6 +12,9 @@ management tool.
  * Make sure foodcritic is happy
  * Make sure your PR is marked as "safe to merge"
 
+# Changelog #
+[Changelog](https://github.com/apsoto/monit/blob/master/Changelog)
+
 # How to add to your cookbook repository #
 
 ## Download the tarball ##
