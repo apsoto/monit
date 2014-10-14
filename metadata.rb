@@ -6,6 +6,7 @@ description      "Configures monit.  Originally based off the 37 Signals Cookboo
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.7.5"
 
+depends "chef_handler"
 
 attribute 'monit/notify_email', 
   :description => 'The email address to send alerts to.',
