@@ -22,10 +22,10 @@ template "/etc/monit/monitrc" do
   group "root"
   mode 0700
   source 'monitrc.erb'
-  notifies :restart, "service[monit]", :delayed
+  notifies :reload, "service[monit]", :delayed
 end
 
 service "monit" do
   action [:enable, :start]
-  supports [:start, :restart, :stop]
+  supports [:start, :restart, :reload, :stop]
 end
