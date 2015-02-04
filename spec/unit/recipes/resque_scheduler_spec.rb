@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'monit::resque_scheduler' do
   let(:chef_run) do
-    ChefSpec::Runner.new do |node|
+    ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04') do |node|
       node.set[:monit][:resque][:app_root] = '/www/myapp-test/current'
     end.converge(described_recipe)
   end

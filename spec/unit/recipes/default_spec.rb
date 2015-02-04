@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe 'monit::default' do
   context "with default attributes" do
-    let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+    let(:chef_run) do 
+      runner = ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04').converge(described_recipe)
+    end
 
     it 'creates /etc/monit/conf.d/' do
       expect(chef_run).to create_directory('/etc/monit/conf.d/').with(user: 'root', group: 'root', mode: 0755)
@@ -36,7 +38,7 @@ describe 'monit::default' do
 
   context "with configuration" do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new do |node|
+      runner = ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04') do |node|
         node.set[:monit][:notify_email] = 'johndoe@example.com'
         node.set[:monit][:logfile] = '/var/log/monit.log'
         node.set[:monit][:poll_period] = 30         

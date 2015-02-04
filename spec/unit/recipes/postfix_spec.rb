@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'monit::postfix' do
   let(:chef_run) do
-    runner = ChefSpec::Runner.new.converge(described_recipe)
+    runner = ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04').converge(described_recipe)
   end
 
   # Temporary soultion for testing definitions/monitrc.erb without monky patch.

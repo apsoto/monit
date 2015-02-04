@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'monit::resque' do
   def chef_run(monit_resque_attrs = {})
-    @chef_run ||= ChefSpec::Runner.new do |node|
+    @chef_run ||= ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04') do |node|
       node.set[:monit][:resque] = monit_resque_attrs
     end.converge described_recipe
   end
