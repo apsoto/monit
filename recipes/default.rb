@@ -8,8 +8,17 @@ cookbook_file "/etc/default/monit" do
   only_if { platform?("ubuntu") || platform?("debian") }
 end
 
+case node['platform']
+when 'ubuntu', 'debian'
+  node.default['monit']['conf_file'] = '/etc/monit/monitrc'
+  node.default['monit']['conf_dir'] = '/etc/monit/conf.d/'
 
-directory "/etc/monit/conf.d/" do
+when 'redhat', 'fedora', 'centos'  # ~FC024 
+  node.default['monit']['conf_file'] = '/etc/monit.conf'
+  node.default['monit']['conf_dir'] = '/etc/monit.d/'
+end
+
+directory node['monit']['conf_dir'] do
   owner  'root'
   group 'root'
   mode 0755
@@ -17,7 +26,7 @@ directory "/etc/monit/conf.d/" do
   recursive true
 end
 
-template "/etc/monit/monitrc" do
+template node['monit']['conf_file'] do
   owner "root"
   group "root"
   mode 0700
