@@ -21,7 +21,8 @@ template "/etc/monit/monitrc" do
   owner "root"
   group "root"
   mode 0700
-  source 'monitrc.erb'
+  cookbook node['monit']['config_template_cookbook']
+  source node['monit']['config_template']
   notifies :restart, "service[monit]", :delayed
 end
 

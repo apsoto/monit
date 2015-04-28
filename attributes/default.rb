@@ -35,3 +35,6 @@ default["monit"]["ssh_port"] = 22
 default["monit"]["eventqueue"]["set"] = true
 default["monit"]["eventqueue"]["basedir"] = "/var/monit"
 default["monit"]["eventqueue"]["slots"] = 1000
+
+default["monit"]["config_template_cookbook"] = "monit"
+default["monit"]["config_template"] = "monitrc.erb"
