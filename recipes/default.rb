@@ -1,4 +1,8 @@
-package "monit"
+package "monit" do
+    action :remove
+end
+
+include_recipe "monit::build_src"
 
 cookbook_file "/etc/default/monit" do
   source "monit.default"
@@ -17,7 +21,7 @@ directory "/etc/monit/conf.d/" do
   recursive true
 end
 
-template "/etc/monit/monitrc" do
+template "/etc/monitrc" do
   owner "root"
   group "root"
   mode 0700
