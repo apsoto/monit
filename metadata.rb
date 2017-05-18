@@ -7,7 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.7.5"
 
 
-attribute 'monit/notify_email', 
+attribute 'monit/notify_email',
   :description => 'The email address to send alerts to.',
   :type => "string",
   :required => "recommended"
